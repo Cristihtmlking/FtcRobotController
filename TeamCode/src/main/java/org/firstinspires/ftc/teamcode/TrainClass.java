@@ -46,7 +46,8 @@ public class TrainClass extends OpMode {
                 "Care roade n-ați adus -\n" +
                 "E ușor a scrie versuri\n" +
                 "Când nimic nu ai de spus.";
-        telemetry.addData(caption:"Moment cultural", value:s);
+        telemetry.addData("Moment cultural", s);
+
     }
     @Override
     public void loop(){
