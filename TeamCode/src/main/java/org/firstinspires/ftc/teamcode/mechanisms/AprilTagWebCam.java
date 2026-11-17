@@ -11,6 +11,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import org.firstinspires.ftc.vision.apriltag.AprilTagSingleDetection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class AprilTagWebCam {
                 .build();
         VisionPortal.Builder builder = new VisionPortal.Builder();
         builder.setCamera(hwMap.get(WebcamName.class, "Webcam 1"));
-        builder.setCameraResolution(new Size(640, 480));
+        builder.setCameraResolution(new Size(1280, 720));
         builder.addProcessor(aprilTagProcessor);
 
         visionPortal = builder.build();
@@ -47,10 +48,13 @@ public class AprilTagWebCam {
     public List<AprilTagDetection> getDetectedTags(){
         return detectedTags;
     }
-    public AprilTagDetection getTagBySpecificId(int id){
-        for (AprilTagDetection detection : detectedTags){
-            if(detection.id == id){
-                return detection;
+    public AprilTagDetection getTagBySpecificId(int id) {
+        for (AprilTagDetection detection : detectedTags) {
+            if (detection instanceof AprilTagSingleDetection) {
+                AprilTagSingleDetection single = (AprilTagSingleDetection) detection;
+                if (single.id == id) {
+                    return single;
+                }
             }
         }
         return null;
